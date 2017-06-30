@@ -1,0 +1,79 @@
+<html>
+    <head>
+       <title>Quotes</title>        
+        {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_quotes/css/style.css' %}">
+    </head>
+    <body>
+        <div id ="error" >
+                {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+         </div>
+        <h1> Welcome {{name}} </h1>
+        <a href = {% url 'auth:logout'%}>Logout</a>
+        <h4> Quotable Quotes : </h4>
+        <div id = quotes>
+        {% for quote in Quotedata %} 
+                 {% if quote.userquotes.id == userid %}
+           
+               
+                        <h4><td>{{quote.quotedby}} :</h4>
+                        <p>{{quote.message}}</p> <br>
+                        <p>Posted By :<a href={% url 'quotes:details' quote.id %} target="_blank">{{quote.userquotes.name}}</a></p>
+                        <p> <a href= {% url 'quotes:favquote' quote.id  %} >Add To Wish List</a></p>
+                     
+             {% endif %}
+            {% endfor %}
+          
+         
+        {% for quote in Quotedata %} 
+                 {% if quote.userquotes.id != userid %}
+           
+                        <p>{{quote.quotedby}}</p>
+                        <p>{{quote.message}}</p> <br>
+                        <p>Posted By :<a href={% url 'quotes:details' quote.id %} target="_blank">{{quote.userquotes.name}}</a></p>
+                        <p> <a href={% url 'quotes:favquote' quote.id  %} >Add To Wish List</a></p>
+                     
+             {% endif %}
+            {% endfor %}
+        </div>
+          
+        <h2> Fav Quotes </h2>
+            <div id = quote>
+                {% for data in Userfav %} 
+                    
+                <tr> 
+                        <td>{{data.quotedby}}</td>
+                        <td>{{data.message}}</td> <br> <br>
+                         <p> <a href={% url 'quotes:delete' data.id  %} >Remove</a></p>
+                       
+                     </tr> 
+                     
+            {% endfor %}
+
+        </div>
+
+        
+        
+          
+        <form action = "{% url 'quotes:addquotes'%}" method ="post">
+             {% csrf_token %}
+             <h3> Contribute a Quote: </h3>
+             <p>
+                <label for="Quoted By">Quoted By:</label>
+                <input type="text" id ="Quoted By" name="Quoted By">
+                </p>
+                <p>
+                <label for="message">Message:</label>
+                <textarea name="message" rows="5" cols="50"></textarea><br>
+                </p>
+                <p><input id="submit" type="submit" value="Submit"></p>
+            </form>
+    </body>
+</html>

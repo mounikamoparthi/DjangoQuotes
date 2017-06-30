@@ -1,0 +1,15 @@
+#quotes {
+    width: 750px;
+    height: 450px;
+    display: inline-block;
+    overflow: scroll;
+}
+
+#quote {
+    
+    margin :10px 20px 10px 10px;
+    display: inline-block;
+    width: 200px;
+    height: 400px;
+    overflow: scroll;
+}

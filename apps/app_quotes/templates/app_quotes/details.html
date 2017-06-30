@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+       <title>Quotes</title>
+                
+    </head>
+    <body>
+     <a href = {% url 'quotes:index'%} >Dashboard</a>
+     <a href = {% url 'auth:logout'%}>Logout</a>
+ {{context}}
+        <h1> Posts by {{quote.userquotes.name}}</h1>
+        
+            <p> Count: {{quote.otherquotes.count}} </p>
+      
+            <p> {{quote.quotedby}} : {{quote.message}}</p>
+            
+           
+    </body>
+<html>
+
+             
